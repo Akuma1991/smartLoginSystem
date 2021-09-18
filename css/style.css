@@ -1,0 +1,35 @@
+body{
+    background-color: #24353f;
+}
+
+.row{
+    box-shadow: rgb(0, 0, 0) -5px 2px 54px -9px;
+}
+
+h1 , h3{
+    color: rgb(23, 162, 184);
+}
+
+.loginLink{
+    color: rgb(23, 162, 184) !important;
+    border: 1px solid rgb(23, 162, 184) !important;
+    transition: all 0.5s;
+}
+.loginLink:hover{
+background-color: rgb(23, 162, 184) !important;
+color: white !important;
+;
+}
+a{
+    text-decoration: none;
+    transition: all 0.5s;
+}
+a:hover{
+    text-decoration: underline ;
+}
+
+.home{
+    margin-top: 250px;
+    padding: 50px;
+}
+

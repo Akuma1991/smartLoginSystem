@@ -12,7 +12,7 @@ var alertLoginIn = document.querySelector('span');
 var singUp = document.getElementById('singUp');
 var singIn = document.getElementById('singIn');
 var logOut = document.getElementById('logOut');
-var indexLocation ='index.html';
+var indexLocation = 'index.html';
 localStorage.setItem('indexLocation', indexLocation);
 
 if (localStorage.getItem('usersAccounts') == null) {
@@ -31,11 +31,6 @@ else {
 
     var trigger = localStorage.getItem('trigger');
 }
-
-
-
-
-
 
 
 
@@ -70,7 +65,6 @@ if (singUp) {
                 localStorage.setItem('usersAccounts', JSON.stringify(userAccounts));
                 alertAllInput.innerHTML = `Success`;
                 alertAllInput.setAttribute('class', 'text-success');
-
                 clearInputs();
 
             }
@@ -95,28 +89,37 @@ if (singIn) {
     }
     singIn.addEventListener('click', function () {
         var temp = 0;
-
-        for (var i = 0; i < userAccounts.length; i++) {
-            if (userAccounts[i].email == userEmail2.value && userAccounts[i].password == userPassword2.value) {
-                // welcomeName = userAccounts[i].name;
-                // localStorage.setItem('userWelcome', welcomeName);
-                var object = {
-                    name: userAccounts[i].name,
-                    email: userAccounts[i].email,
-                    password: userAccounts[i].password
-                };
-                localStorage.setItem('userWelcome', JSON.stringify(object));
-                singIn.setAttribute('href', 'home.html')
-                temp = 1;
-                trigger = 1;
-                localStorage.setItem('trigger', trigger);
-                console.log(trigger);
-                break;
-            }
-
+        if (userEmail2.value == '' || userPassword2.value == '') {
+            alertLoginIn.innerHTML = 'All inputes are required';
+            singIn.removeAttribute('href');
+            temp = 2;
         }
+        else {
+            for (var i = 0; i < userAccounts.length; i++) {
+                if (userAccounts[i].email == userEmail2.value && userAccounts[i].password == userPassword2.value) {
+                    // welcomeName = userAccounts[i].name;
+                    // localStorage.setItem('userWelcome', welcomeName);
+                    var object = {
+                        name: userAccounts[i].name,
+                        email: userAccounts[i].email,
+                        password: userAccounts[i].password
+                    };
+                    localStorage.setItem('userWelcome', JSON.stringify(object));
+                    // singIn.setAttribute('href', 'home.html');
+                    window.location.href = 'home.html';
+                    temp = 1;
+                    trigger = 1;
+                    localStorage.setItem('trigger', trigger);
+                    console.log(trigger);
+                    break;
+                }
+
+            }
+        }
+
+
         if (temp == 0) {
-            alertLoginIn.innerHTML = 'invalid email or password'
+            alertLoginIn.innerHTML = 'invalid email or password';
             singIn.removeAttribute('href');
         }
 
@@ -136,7 +139,6 @@ if (userWelcome) {
     if (localStorage.getItem('trigger') == 0) {
         // window.location.replace('file:///D:/Full%20Stack/Front-End/Assignments/Login/index.html');
         window.location.replace(localStorage.getItem('indexLocation'));
-        window.location.protocol
 
     }
     else {
@@ -154,7 +156,7 @@ if (userWelcome) {
 
 
 function regexEmail() {
-    var regexEmail = /^[A-Za-z0-9]{1,100}@[A-Za-z0-9]/;
+    var regexEmail = /^[A-Za-z0-9]{1,100}@[A-Za-z0-9]{1,100}/;
     console.log(regexEmail.test(userEmail.value));
     console.log(userEmail.value);
     if (regexEmail.test(userEmail.value)) {
@@ -164,3 +166,7 @@ function regexEmail() {
     }
 
 }
+
+
+
+

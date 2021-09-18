@@ -11,8 +11,9 @@ var alertLoginIn = document.querySelector('span');
 
 var singUp = document.getElementById('singUp');
 var singIn = document.getElementById('singIn');
-
-// var welcomeName = '';
+var logOut = document.getElementById('logOut');
+var indexLocation ='index.html';
+localStorage.setItem('indexLocation', indexLocation);
 
 if (localStorage.getItem('usersAccounts') == null) {
     var userAccounts = [];
@@ -20,6 +21,15 @@ if (localStorage.getItem('usersAccounts') == null) {
 else {
 
     var userAccounts = JSON.parse(localStorage.getItem('usersAccounts'));
+}
+
+if (localStorage.getItem('trigger') == null) {
+    var trigger = 0;
+    localStorage.setItem('trigger', trigger);
+}
+else {
+
+    var trigger = localStorage.getItem('trigger');
 }
 
 
@@ -74,6 +84,10 @@ if (singUp) {
 }
 
 if (singIn) {
+    indexLocation = document.location.href;
+    localStorage.setItem('indexLocation', indexLocation);
+
+    console.log(indexLocation);
     if (localStorage.getItem('userWelcome') != null) {
         userEmail2.value = JSON.parse(localStorage.getItem('userWelcome')).email;
         userPassword2.value = JSON.parse(localStorage.getItem('userWelcome')).password;
@@ -94,6 +108,9 @@ if (singIn) {
                 localStorage.setItem('userWelcome', JSON.stringify(object));
                 singIn.setAttribute('href', 'home.html')
                 temp = 1;
+                trigger = 1;
+                localStorage.setItem('trigger', trigger);
+                console.log(trigger);
                 break;
             }
 
@@ -114,7 +131,25 @@ function clearInputs() {
 }
 
 if (userWelcome) {
-    userWelcome.innerHTML = `welcome ${JSON.parse(localStorage.getItem('userWelcome')).name}`;
+    console.log(trigger);
+
+    if (localStorage.getItem('trigger') == 0) {
+        // window.location.replace('file:///D:/Full%20Stack/Front-End/Assignments/Login/index.html');
+        window.location.replace(localStorage.getItem('indexLocation'));
+        window.location.protocol
+
+    }
+    else {
+        userWelcome.innerHTML = `welcome ${JSON.parse(localStorage.getItem('userWelcome')).name}`;
+        logOut.addEventListener('click', function () {
+            trigger = 0;
+            localStorage.setItem('trigger', trigger);
+            // window.location.replace('file:///D:/Full%20Stack/Front-End/Assignments/Login/index.html');
+            window.location.replace(localStorage.getItem('indexLocation'));
+
+        });
+    }
+
 }
 
 
